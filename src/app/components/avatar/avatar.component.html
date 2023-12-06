@@ -1,0 +1,9 @@
+<ion-chip>
+  <ion-avatar class="avatar">
+    <img *ngIf="user.avatar; else initials" src="user.avatar" />
+    <ng-template #initials>
+      <span>{{ initials$ | async }}</span>
+    </ng-template>
+  </ion-avatar>
+  <ion-label *ngIf="showUsername" class="label">{{ user.username }}</ion-label>
+</ion-chip>

@@ -1,0 +1,8 @@
+{
+  "name": "PickupPlay",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "bfa7c475"
+}

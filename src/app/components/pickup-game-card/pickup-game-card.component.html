@@ -1,0 +1,25 @@
+<ion-card>
+  <div class="header">
+    <div class="header-user">
+      <app-avatar [user]="pickupGame.owner"></app-avatar>
+    </div>
+    <span>{{ pickupGame.date | date : 'short' }}</span>
+  </div>
+  <ion-card-content>
+    <img src="/assets/map.png" />
+  </ion-card-content>
+  <div class="actions">
+    <ion-button fill="clear">
+      <ion-icon slot="start" name="create-outline"></ion-icon>
+      Sign Up
+    </ion-button>
+    <ion-button fill="clear">
+      <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
+      Chat
+    </ion-button>
+    <ion-button fill="clear">
+      <ion-icon slot="start" name="share-social-outline"></ion-icon>
+      Share
+    </ion-button>
+  </div>
+</ion-card>
