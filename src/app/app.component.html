@@ -1,3 +1,23 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-content>
+    <app-navigation-menu></app-navigation-menu>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{ menuTitle$ | async }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div
+      [class]="[
+        'ion-page',
+        (isIos$ | async) ? 'ios' : '',
+        (isAndroid$ | async) ? 'android' : ''
+      ]"
+      id="main-content"
+    >
+      <ion-router-outlet></ion-router-outlet>
+    </div>
+  </ion-content>
 </ion-app>

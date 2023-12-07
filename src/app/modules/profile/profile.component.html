@@ -1,0 +1,57 @@
+<ion-card *ngIf="{ user: user$ | async } as shared">
+  <div class="header">
+    <div
+      class="profile-picture"
+      (click)="pickAvatar()"
+      [style.background-image]="'url(' + shared.user?.avatar + ')'"
+    >
+      <span *ngIf="!shared.user?.avatar" class="initials">{{
+        getInitials(shared.user?.fullName || '')
+      }}</span>
+      <span class="profile-picture-overlay">
+        <ion-icon name="add-outline"></ion-icon>
+      </span>
+    </div>
+  </div>
+  <ion-card-content>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-input
+            labelPlacement="floating"
+            errorText="Invalid Username"
+            [clearInput]="true"
+            label="Username"
+            formControlName="username"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            labelPlacement="floating"
+            errorText="Invalid First Name"
+            [clearInput]="true"
+            label="First Name"
+            formControlName="firstName"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            labelPlacement="floating"
+            errorText="Invalid Last Name"
+            [clearInput]="true"
+            label="Last Name"
+            formControlName="lastName"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-button
+        color="primary"
+        type="submit"
+        [disabled]="(hasChange$ | async) !== true || profileForm.invalid"
+      >
+        Done
+      </ion-button>
+    </form>
+  </ion-card-content>
+</ion-card>

@@ -1,0 +1,19 @@
+<ion-menu #menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>PickupPlay</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-button
+        expand="full"
+        fill="clear"
+        *ngFor="let menuItem of menuItems$ | async"
+        [disabled]="(activatedMenuItem$ | async) === menuItem"
+        (click)="navigate(menuItem.route)"
+        >{{ menuItem.label }}</ion-button
+      >
+    </ion-list>
+  </ion-content>
+</ion-menu>

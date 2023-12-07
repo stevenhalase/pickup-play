@@ -1,25 +1,48 @@
 <ion-card>
   <div class="header">
+    <span class="title"
+      >{{ pickupGame.title }}
+      <ion-badge color="primary">
+        <ion-icon [name]="pickupGame.sport + '-outline'"></ion-icon>
+        {{ pickupGame.sport }}
+      </ion-badge>
+    </span>
+    <span class="description">{{ pickupGame.description }}</span>
+    <span class="date">{{ pickupGame.date | date : 'short' }}</span>
     <div class="header-user">
       <app-avatar [user]="pickupGame.owner"></app-avatar>
     </div>
-    <span>{{ pickupGame.date | date : 'short' }}</span>
   </div>
   <ion-card-content>
-    <img src="/assets/map.png" />
+    <app-map [location]="pickupGame.location"></app-map>
   </ion-card-content>
   <div class="actions">
-    <ion-button fill="clear">
+    <ion-button
+      fill="clear"
+      size="small"
+      (click)="setParticipantListOpen(true)"
+    >
+      <ion-icon slot="start" name="people-outline" size="small"></ion-icon>
+      Players
+    </ion-button>
+    <ion-button fill="clear" size="small" (click)="showSignupSheet()">
       <ion-icon slot="start" name="create-outline"></ion-icon>
       Sign Up
     </ion-button>
-    <ion-button fill="clear">
+    <ion-button fill="clear" size="small" (click)="setChatOpen(true)">
       <ion-icon slot="start" name="chatbubbles-outline"></ion-icon>
       Chat
     </ion-button>
-    <ion-button fill="clear">
-      <ion-icon slot="start" name="share-social-outline"></ion-icon>
-      Share
-    </ion-button>
+    <app-share-button [url]="'www.google.com'"></app-share-button>
   </div>
+  <app-participant-list
+    [participants]="pickupGame.participants"
+    [isOpen]="(participantListOpen$ | async) === true"
+    (open)="setParticipantListOpen($event)"
+  ></app-participant-list>
+  <app-chat
+    [pickupGame]="pickupGame"
+    [isOpen]="(chatOpen$ | async) === true"
+    (open)="setChatOpen($event)"
+  ></app-chat>
 </ion-card>

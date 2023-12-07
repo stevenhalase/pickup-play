@@ -1,0 +1,63 @@
+<ion-modal [isOpen]="isOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ pickupGame.title }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false)">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding" scroll="false">
+      <div class="content">
+        <div class="messages-list">
+          <ion-list
+            lines="none"
+            *ngIf="{ user: user$ | async } as shared"
+            class="ion-padding"
+          >
+            <div
+              *ngFor="let message of pickupGame.messages"
+              class="message"
+              [class.incoming]="!isEqual(shared.user, message.from)"
+            >
+              <div class="message-bubble-wrapper">
+                <span class="message-bubble">
+                  <span
+                    *ngIf="!isEqual(shared.user, message.from)"
+                    class="message-sender"
+                  >
+                    <ion-label>{{ message.from.fullName }}</ion-label>
+                  </span>
+                  <span>{{ message.text }}</span>
+                </span>
+                <span class="message-date">{{
+                  message.date | date : 'short'
+                }}</span>
+              </div>
+              <app-avatar
+                *ngIf="!isEqual(shared.user, message.from)"
+                [user]="message.from"
+                [showUsername]="false"
+              ></app-avatar>
+            </div>
+          </ion-list>
+        </div>
+        <div class="actions">
+          <ion-input
+            placeholder="Enter message"
+            color="medium"
+            fill="solid"
+            shape="round"
+          ></ion-input>
+          <ion-button shape="round">
+            <ion-icon
+              slot="icon-only"
+              name="arrow-up-circle-outline"
+            ></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

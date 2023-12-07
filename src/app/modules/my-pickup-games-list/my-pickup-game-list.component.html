@@ -1,0 +1,6 @@
+<ion-content>
+  <app-pickup-game-card
+    *ngFor="let pickupGame of pickupGames$ | async"
+    [pickupGame]="pickupGame"
+  ></app-pickup-game-card>
+</ion-content>

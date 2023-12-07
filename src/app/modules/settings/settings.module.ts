@@ -4,10 +4,10 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { HomeComponent } from './home.component';
+import { SettingsComponent } from './settings.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HomeRoutingModule } from './home-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SettingsRoutingModule } from './settings-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -15,9 +15,11 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomeRoutingModule,
+    SettingsRoutingModule,
     SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  declarations: [HomeComponent],
+  declarations: [SettingsComponent],
 })
-export class HomeModule {}
+export class SettingsModule {}

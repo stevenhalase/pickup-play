@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/data';
+import { getInitials } from 'src/app/helpers';
 
 @Component({
   selector: 'app-avatar',
@@ -19,23 +20,10 @@ export class AvatarComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (
       changes['user'].currentValue &&
-      this._getInitials(
-        `${changes['user'].currentValue.firstName} ${changes['user'].currentValue.lastName}`
-      ) !== this._initials.value
+      getInitials(changes['user'].currentValue.fullName) !==
+        this._initials.value
     ) {
-      this._initials.next(
-        this._getInitials(
-          `${changes['user'].currentValue.firstName} ${changes['user'].currentValue.lastName}`
-        )
-      );
+      this._initials.next(getInitials(changes['user'].currentValue.fullName));
     }
-  }
-
-  private _getInitials(name: string) {
-    console.log('name', name);
-    return name
-      .split(' ')
-      .map((n) => n[0])
-      .join('');
   }
 }

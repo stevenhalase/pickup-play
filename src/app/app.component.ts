@@ -1,22 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService, ProfileService } from './services';
-import { Observable } from 'rxjs';
+import {
+  AuthenticationService,
+  ProfileService,
+  TitleService,
+} from './services';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Profile, User } from './data';
+import { Platform } from '@ionic/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
+  private _isIos = new BehaviorSubject<boolean>(false);
+  isIos$ = this._isIos.asObservable();
+  private _isAndroid = new BehaviorSubject<boolean>(false);
+  isAndroid$ = this._isAndroid.asObservable();
+
+  menuTitle$: Observable<string>;
   user$: Observable<User>;
   userProfile$: Observable<Profile>;
 
   constructor(
+    private _titleService: TitleService,
+    private _platform: Platform,
     private _authenticationService: AuthenticationService,
     private _profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
+    this._isIos.next(this._platform.platforms().includes('ios'));
+    this._isAndroid.next(this._platform.platforms().includes('android'));
+    this.menuTitle$ = this._titleService.title$;
     this.user$ = this._authenticationService.user$;
     this.userProfile$ = this._profileService.userProfile$;
 
@@ -33,7 +50,6 @@ export class AppComponent implements OnInit {
 
   // Add or remove the "dark" class on the document body
   toggleDarkTheme(shouldAdd: boolean) {
-    console.log(shouldAdd);
     document.body.classList.toggle('dark', true);
   }
 }

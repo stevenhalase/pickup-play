@@ -1,6 +1,6 @@
 <ion-chip>
   <ion-avatar class="avatar">
-    <img *ngIf="user.avatar; else initials" src="user.avatar" />
+    <img *ngIf="user.avatar; else initials" [src]="user.avatar" />
     <ng-template #initials>
       <span>{{ initials$ | async }}</span>
     </ng-template>

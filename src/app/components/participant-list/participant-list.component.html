@@ -1,0 +1,31 @@
+<ion-modal [isOpen]="isOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Players</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false)">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list lines="none">
+        <ion-item *ngFor="let participant of participants">
+          <app-avatar
+            [user]="participant.user"
+            [showUsername]="false"
+          ></app-avatar>
+          <ion-label>{{ participant.user.fullName }}</ion-label>
+          <ion-chip
+            *ngIf="participant.rsvp === RSVP.CONFIRMED; else maybe"
+            color="success"
+            >Confirmed</ion-chip
+          >
+          <ng-template #maybe>
+            <ion-chip color="warning">Maybe</ion-chip>
+          </ng-template>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
